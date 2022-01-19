@@ -15,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.convert.Jsr310Converters;
+
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import com.maurodev.minhasfinancas.model.enums.StatusLancamento;

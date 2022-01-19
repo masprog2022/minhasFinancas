@@ -1,25 +1,27 @@
 package com.maurodev.minhasfinancas.repositories;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.maurodev.minhasfinancas.entities.Usuario;
 
 
-
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-@RunWith(SpringRunner.class)
-
+@ActiveProfiles("test")
 public class UsuarioRepositoryTest {
 	
 	@Autowired
 	UsuarioRepository repository;
 	
-    @Test
+   @Test
 	public void deveVerificarAExistenciaDeUmEmail() {
 		
 		// cenario
@@ -37,5 +39,24 @@ public class UsuarioRepositoryTest {
 
 		
 	}
+    
+    @Test
+    public void deveRetornarFalsoQuandoNaoHouverUsuarioCadastradoComEmail() {
+    	
+    	// cenario
+    	
+    	repository.deleteAll();
+    	
+    	// acao
+    	
+    	boolean resultado = repository.existsByEmail("usuario@gmail.com");
+    	
+    	// verificaco
+    	
+    	Assertions.assertThat(resultado).isFalse();
+    	
+    	
+    }
+    
 
 }

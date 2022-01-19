@@ -3,6 +3,8 @@ package com.maurodev.minhasfinancas.entities;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.io.Serializable;
 @Table(name = "usuario", schema = "financas")
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
