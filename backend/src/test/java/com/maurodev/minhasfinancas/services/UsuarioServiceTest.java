@@ -3,6 +3,7 @@ package com.maurodev.minhasfinancas.services;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -35,6 +36,8 @@ public class UsuarioServiceTest {
     	
     	
     	Assertions.assertDoesNotThrow(() -> {
+    		
+    	UsuarioRepository usuarioRepositoryMock =  Mockito.mock(UsuarioRepository.class);
     		 
 			// cenario
 			repository.deleteAll();
