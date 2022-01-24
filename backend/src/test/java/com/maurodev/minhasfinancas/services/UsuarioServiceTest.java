@@ -1,8 +1,10 @@
 package com.maurodev.minhasfinancas.services;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +15,7 @@ import com.maurodev.minhasfinancas.entities.Usuario;
 import com.maurodev.minhasfinancas.exception.RegraNegocioException;
 //import com.maurodev.minhasfinancas.exception.RegraNegocioException;
 import com.maurodev.minhasfinancas.repositories.UsuarioRepository;
+import com.maurodev.minhasfinancas.services.impl.UsuarioServiceImpl;
 
 
 
@@ -29,6 +32,12 @@ public class UsuarioServiceTest {
 	 
 	// @Test(expected = Test.None.class)
 	 
+	 @BeforeEach
+	 public void setUp() {
+		 repository = Mockito.mock(UsuarioRepository.class);
+		 service = new UsuarioServiceImpl(repository);
+	 }
+	 
 	 
 	 
     @Test
@@ -37,10 +46,13 @@ public class UsuarioServiceTest {
     	
     	Assertions.assertDoesNotThrow(() -> {
     		
-    	UsuarioRepository usuarioRepositoryMock =  Mockito.mock(UsuarioRepository.class);
+    	//UsuarioRepository usuarioRepositoryMock =  Mockito.mock(UsuarioRepository.class);
     		 
 			// cenario
-			repository.deleteAll();
+			//repository.deleteAll();
+    		Mockito.when(repository.existsByEmail(Mockito.anyString())).thenReturn(false);
+    		
+    		
  
 			// acao
 			service.validarEmail("usuario@gmail.com");
@@ -56,9 +68,8 @@ public class UsuarioServiceTest {
     	 
     	 Assertions.assertThrows(RegraNegocioException.class, () -> {
  			//cenario
- 			Usuario usuario = Usuario.builder().nome("usuario").email("usuario@gmail.com").build();		
- 			repository.save(usuario);
-  
+    		 Mockito.when(repository.existsByEmail(Mockito.anyString())).thenReturn(true);
+ 			
  			//acao
  			service.validarEmail("usuario@gmail.com");
  		});
